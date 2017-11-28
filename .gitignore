@@ -19,4 +19,10 @@
  
 ## Additional for IntelliJ
 out/
+
+
+.gradle/
+gradle/
+build/
+
  
