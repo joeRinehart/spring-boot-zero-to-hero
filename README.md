@@ -35,7 +35,7 @@ I started to do this in raw Java (since I haven't used it in a long time), but t
 We'll be using Groovy, since its static compilation has greatly reduced any performance issues.
 
 Format
-______
+------
 
 I'll be building up each template as a branch in this repository.
 
