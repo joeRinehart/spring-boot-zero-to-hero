@@ -38,9 +38,3 @@ Format
 ------
 
 I'll be building up each template as a branch in this repository.
-
-
-
-
-
-
