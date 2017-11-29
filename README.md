@@ -1,8 +1,8 @@
 Spring Boot Zero-to-Hero
-========================
+=
 
 Introduction
-------------
+-
 
 For the past five years my team has focused on delivering Grails applications. As our process matured we've found
 ourselves able to deliver production-ready Web applications in a really big hurry, leveraging things like Spring
@@ -13,13 +13,13 @@ doesn't bring along all of Grails, giving us a stripped-down templates for and  
 that uses Spring Boot and don't care about a specific database engine.
 
 Basis
------
+-
 
 Each template will draw a good deal on already-available tutorials but add in convenience methods and abstract helper
 classes aiming to minimize the effort needed to develop a production-ready Spring Boot microservice.
 
 End Goal
---------
+-
 
 Building on a production-ready microservice template, I'd then like to go back and add in things like authentication,
 database support, database migrations, and then ORM support, letting us pull exactly what we want for building a small
@@ -29,18 +29,18 @@ Since I'm no longer in a paid R&D role and don't have a specific client buying t
 making it a publicly-available set of code.
 
 Language Choice
----------------
+-
 
 I started to do this in raw Java (since I haven't used it in a long time), but that's not where I want to go in life.
 We'll be using Groovy, since its static compilation has greatly reduced any performance issues.
 
 Format
-------
+-
 
 I'll be building up each template as a branch in this repository.
 
 Part 1: Bare-Bones REST
-=======================
+=
 
 _(Note: this is likely to be the longest of these per-template/branch writeups, because it's where we'll get the
 most of our Spring Boot microservice ducks in a row.)_
@@ -49,13 +49,30 @@ Our bare-bones REST service is based on [the simple actuator-based REST example 
 
 The following is what I've added on to make life easier.
 
+Git-safe Configuration via "development" Profile
+-
+
+The `application.yml` declares `spring.profiles.active` to be 'development'.
+
+Why should you care?
+
+This makes it so that:
+
+* Developers can place *universal* configuration defaults in `src/resources/application.yaml` and let it be tracked in
+Git
+* We can .gitignore `src/resources/application-development.yaml`. Individual developments can then add
+any settings specific to their development environment (e.g. database usernames and passwords) in an optional
+`src/resources/application-development.yaml`.
+
+(Production deployments would likely use an environment variable to point to their specific configuration file.)
+
 Groovy
-------
+-
 
 Groovy's been added to the stock build.gradle file. The only changes this requires are:
 
-- Applying the "groovy" plugin
-- Adding Groovy as a compile dependency
+* Applying the "groovy" plugin
+* Adding Groovy as a compile dependency
 
 This _does_ mean a few things are different in the code: for example, we'll use Groovy-style no-arg default constructors
 instead of constructors with explicit argument lists.
@@ -75,6 +92,46 @@ something easier to press to the "Rebuild Module" IDEA command).
 
 Additionally, src/main/resources/application.properties is set up to not cache Thymeleaf, Freemaker, or Groovy
 templates.
+
+Spock Integration
+-----------------
+
+In the Groovy/Grails world we favor Spock BDD over JUnit TDD. Therefore Spock and its Spring integration is added and
+working (there's some version hell to go through) and the unit test in the example has been rewritten to be a Spock
+specification.
+
+
+Simplified REST Testing
+-----------------------
+
+The tests for the basic "Hello World" service in the Spring REST example contain a lot of boilerplate. To DRY things out,
+there's now an abstract class (AbstractRestConfigurationSpec) that provides dead-simple helpers for testing our REST
+services.
+
+Basically, this:
+
+    @Test
+    public void shouldReturn200WhenSendingRequestToController() throws Exception {
+      @SuppressWarnings("rawtypes")
+      ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
+          "http://localhost:" + this.port + "/hello-world", Map.class);
+
+      then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+
+Is now this:
+
+    def "Should return 200 when GETing /hello-world our service"() {
+      when:
+      ResponseEntity response = service.get( '/hello-world' )
+
+      then:
+      response.statusCode == HttpStatus.OK
+    }
+
+
+
 
 
 

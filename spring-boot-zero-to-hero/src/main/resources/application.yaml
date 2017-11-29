@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: development
+  thymeleaf:
+    cache: false
+  freemarker:
+    cache: false
+  groovy:
+    template:
+    cache: false
+
+server:
+  protocol: http
+  host: localhost
+
+management:
+  protocol: http
+  host: localhost
+

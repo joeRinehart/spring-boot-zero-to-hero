@@ -20,9 +20,11 @@
 ## Additional for IntelliJ
 out/
 
-
 .gradle/
 gradle/
 build/
+
+# Let developers have their own application-development.yaml file
+**/application-development.yaml
 
  
