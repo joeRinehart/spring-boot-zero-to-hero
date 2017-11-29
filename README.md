@@ -130,6 +130,18 @@ Is now this:
       response.statusCode == HttpStatus.OK
     }
 
+Part 2: CRUD REST in Memory
+=
+
+Next we'll expand our little service to do common CRUD operations.
+
+Goodbye, Greeting
+-
+
+Greeting was a holdover from the original Spring tutorial. Much like Step 1, I'm basing this part off of a different
+Spring guide: [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/). In it, we'll ditch Greeting
+and work instead with another simple domain class named Contact.
+
 
 
 

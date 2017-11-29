@@ -30,9 +30,18 @@ repositories {
 ext['spock.version'] = '1.1-groovy-2.4'
 
 dependencies {
+    // groovy
     compile("org.codehaus.groovy:groovy-all:2.4.1")
+
+    // spring
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // database
+    compile("com.h2database:h2")
+
+    // testing
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
     testCompile("org.spockframework:spock-core:1.1-groovy-2.4")
