@@ -6,26 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Customer {
+public class Contact {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
-    private String firstName;
-    private String lastName;
+    Long id
+    String firstName
+    String lastName
 
-    protected Customer() {}
-
-    public Customer(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
+    String toString() {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+                id, firstName, lastName)
     }
 
 }

@@ -1,10 +1,11 @@
 package com.thirdstart.spring.zerotohero
 
-import com.thirdstart.spring.zerotohero.helpers.RestServiceHelper
+import com.thirdstart.spring.zerotohero.util.rest.RestServiceHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 
 abstract class AbstractRestConfigurationSpec extends Specification {
@@ -32,14 +33,14 @@ abstract class AbstractRestConfigurationSpec extends Specification {
 
     RestServiceHelper getService() {
         return new RestServiceHelper(
-            testRestTemplate: testRestTemplate,
+            restTemplate: testRestTemplate.restTemplate,
             serviceUrl: serverProtocol + '://' + serverHost + ':' + serverPort
         )
     }
 
     RestServiceHelper getManagement() {
         return new RestServiceHelper(
-            testRestTemplate: testRestTemplate,
+            restTemplate: testRestTemplate.restTemplate,
             serviceUrl: managementProtocol + '://' + managementHost + ':' + managementPort
         )
     }
