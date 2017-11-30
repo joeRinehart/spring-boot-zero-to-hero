@@ -16,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody
 @Controller
 class ContactController {
 
+    // PROPERTIES
+
     @Autowired
     ContactService contactService
+
+
+    // REST API METHODS
 
     @GetMapping('/contacts')
     ResponseEntity<Iterable> list() {
@@ -27,31 +32,28 @@ class ContactController {
     @GetMapping('/contacts/{id}')
     ResponseEntity<Contact> get( @PathVariable('id') Long id ) {
         Contact contact = contactService.findOne( id )
-        return new ResponseEntity(contact, HttpStatus.OK)
+
+        return ok(contact)
     }
 
     @PostMapping('/contacts')
     ResponseEntity<Contact> post( @RequestBody Contact contactDto ) {
-        Contact contact = new Contact()
-
-        contact.firstName = contactDto.firstName
-        contact.lastName = contactDto.lastName
+        Contact contact = assemble( contactDto )
 
         contactService.save( contact )
 
-        return new ResponseEntity(contact, HttpStatus.OK)
+        return ok(contact)
     }
 
     @PutMapping('/contacts/{id}')
     ResponseEntity<Contact> put( @RequestBody Contact contactDto ) {
         Contact contact = contactService.findOne( contactDto.id )
 
-        contact.firstName = contactDto.firstName
-        contact.lastName = contactDto.lastName
+        assemble( contactDto, contact )
 
         contactService.save( contact )
 
-        return new ResponseEntity(contact, HttpStatus.OK)
+        return ok(contact)
     }
 
     @DeleteMapping('/contacts/{id}')
@@ -60,8 +62,26 @@ class ContactController {
 
         contactService.delete( contact )
 
-        return new ResponseEntity(contact, HttpStatus.OK)
+        return ok(contact)
     }
 
+    // PROTECTED METHODS
 
+    /**
+     * Marshall/Assemble an incoming Contact (DTO) onto a Contact. In a larger API,
+     * this could definitely be passed off to something dedicated to marshalling!
+     */
+    Contact assemble(Contact dto, Contact contact = new Contact()) {
+        contact.firstName = dto.firstName
+        contact.lastName = dto.lastName
+        return contact
+
+    }
+
+    /**
+     * Create an HttpStatus.OK (200) response containing a contact
+     */
+    ResponseEntity ok(Contact contact) {
+        return new ResponseEntity(contact, HttpStatus.OK)
+    }
 }
