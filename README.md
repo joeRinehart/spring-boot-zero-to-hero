@@ -5,28 +5,18 @@ Introduction
 -
 
 For the past five years my team has focused on delivering Grails applications. As our process matured we've found
-ourselves able to deliver production-ready Web applications in a really big hurry, leveraging things like Spring
+ourselves able to deliver production-ready Web applications in a really big hurry by leveraging things like Spring
 Security, database migrations, Gradle-based pushbutton builds, and so on.
 
-With a growing interest in microservices, I thought it was time to lay down the foundation for a similar process that
-doesn't bring along all of Grails, giving us a stripped-down templates for and  authenticated, JSON-based REST services
-that uses Spring Boot and don't care about a specific database engine.
+With a growing interest in microservices I thought it was time to lay down the foundation for a similar process that
+doesn't bring along all of Grails, giving us a set of stripped-down templates for authenticated, JSON-based REST services
+that use Spring Boot and don't care about a specific database engine.
 
 Basis
 -
 
 Each template will draw a good deal on already-available tutorials but add in convenience methods and abstract helper
 classes aiming to minimize the effort needed to develop a production-ready Spring Boot microservice.
-
-End Goal
--
-
-Building on a production-ready microservice template, I'd then like to go back and add in things like authentication,
-database support, database migrations, and then ORM support, letting us pull exactly what we want for building a small
-service.
-
-Since I'm no longer in a paid R&D role and don't have a specific client buying this, I'm doing it in my spare time and
-making it a publicly-available set of code.
 
 Language Choice
 -
@@ -37,13 +27,11 @@ We'll be using Groovy, since its static compilation has greatly reduced any perf
 Format
 -
 
-I'll be building up each template as a branch in this repository.
+I'll be building up each template as a branch in this repository. Each branch will add to this README.md describing
+what it's added as we journey from "hello world" to a usable real-world microservice.
 
 Part 1: Bare-Bones REST
 =
-
-_(Note: this is likely to be the longest of these per-template/branch writeups, because it's where we'll get the
-most of our Spring Boot microservice ducks in a row.)_
 
 Our bare-bones REST service is based on [the simple actuator-based REST example provided by Spring](https://spring.io/guides/gs/actuator-service/).
 
