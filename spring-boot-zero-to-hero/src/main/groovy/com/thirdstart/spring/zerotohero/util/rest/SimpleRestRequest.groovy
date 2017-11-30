@@ -4,13 +4,43 @@ import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
+/**
+ * Wraps up common items needed to make a REST request and handles things like expanding
+ * uri variables ('params') into tokenized URIs for the Spring RestTemplate.
+ */
 class SimpleRestRequest {
+
+    /**
+     * The type of object onto which responses should be mapped, like com.your.great.service.Contact
+     */
     def type = null
+
+    /**
+     * A map of URI variables. This'll be used to expand the query string in getUri().
+     */
     Map params = null
+
+    /**
+     * The path of the request, like '/thing'
+     */
     String path
+
+    /**
+     * The service's root URL, like https://your.great.service
+     */
     String serviceUrl
+
+    /**
+     * Any body to be passed in something like a POST or PUT.
+     */
     Object body
 
+    /**
+     * The expanded URI used for the actual request, based on serviceUrl, path, and params. If your serviceUrl
+     * is https://your.great.service, and path is /thing, and params is [foo: 'bar'], this'll result in a tokenized
+     * uri such as https://your.great.service/thing?foo={foo}, allowing RestTemplate to fill in the actual parameter
+     * values.
+     */
     String getUri() {
         String uri = serviceUrl + path
 
@@ -23,6 +53,9 @@ class SimpleRestRequest {
         return uri
     }
 
+    /**
+     * Returns a new HttpEntity with a content-type of application/json for use in RestTemplate exchange() operations.
+     */
     HttpEntity getHttpEntity() {
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>()
         headers.add("HeaderName", "value")

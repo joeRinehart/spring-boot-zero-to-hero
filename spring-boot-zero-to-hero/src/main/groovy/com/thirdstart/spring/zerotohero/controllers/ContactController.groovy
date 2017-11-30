@@ -27,13 +27,19 @@ class ContactController {
     @GetMapping('/contacts/{id}')
     ResponseEntity<Contact> get( @PathVariable('id') Long id ) {
         Contact contact = contactService.findOne( id )
-        return new ResponseEntity<Contact>(contact, HttpStatus.OK)
+        return new ResponseEntity(contact, HttpStatus.OK)
     }
 
     @PostMapping('/contacts')
-    ResponseEntity<Contact> post( @RequestBody Contact contact ) {
+    ResponseEntity<Contact> post( @RequestBody Contact contactDto ) {
+        Contact contact = new Contact()
+
+        contact.firstName = contactDto.firstName
+        contact.lastName = contactDto.lastName
+
         contactService.save( contact )
-        return new ResponseEntity<Contact>(contact, HttpStatus.OK)
+
+        return new ResponseEntity(contact, HttpStatus.OK)
     }
 
     @PutMapping('/contacts/{id}')
