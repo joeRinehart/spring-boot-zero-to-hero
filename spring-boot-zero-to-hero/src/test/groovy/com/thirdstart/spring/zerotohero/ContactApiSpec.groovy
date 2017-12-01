@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 @SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ContactApiSpec extends AbstractRestConfigurationSpec {
+class ContactApiSpec extends AbstractContactApiSpec {
 
     def "We can list all contacts with a GET to /contacts"() {
         setup:
@@ -37,18 +37,6 @@ class ContactApiSpec extends AbstractRestConfigurationSpec {
         response.body.id > 0
         response.body.firstName == "Chuck"
         response.body.lastName == "Berry"
-    }
-
-    def "We can get a contact with a GET to /contacts/:id"() {
-        setup:
-        Long contactId = createARandomContact().id
-
-        when:
-        ResponseEntity<Contact> response = service.get("/contacts/${contactId}", Contact)
-
-        then:
-        response.statusCode == HttpStatus.OK
-        response.body.id == contactId
     }
 
     def "We can update a contact with a PUT to /contacts/:id"() {
@@ -96,17 +84,4 @@ class ContactApiSpec extends AbstractRestConfigurationSpec {
         response.statusCode == HttpStatus.OK
     }
 
-    // HELPERS
-
-    private Contact createARandomContact() {
-        ResponseEntity<Contact> response = service.post(
-                '/contacts',
-                new Contact(
-                        firstName: "Random",
-                        lastName: UUID.randomUUID().toString()
-                )
-        )
-
-        return response.body
-    }
 }

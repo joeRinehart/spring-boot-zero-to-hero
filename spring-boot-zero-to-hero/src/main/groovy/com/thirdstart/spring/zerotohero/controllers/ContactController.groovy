@@ -33,7 +33,7 @@ class ContactController {
     ResponseEntity<Contact> get( @PathVariable('id') Long id ) {
         Contact contact = contactService.findOne( id )
 
-        return ok(contact)
+        return contact ? ok(contact) : notFound()
     }
 
     @PostMapping('/contacts')
@@ -82,6 +82,14 @@ class ContactController {
      * Create an HttpStatus.OK (200) response containing a contact
      */
     ResponseEntity ok(Contact contact) {
-        return new ResponseEntity(contact, HttpStatus.OK)
+        return new ResponseEntity( contact, HttpStatus.OK )
     }
+
+    /**
+     * Create an HttpStatus.OK (404) response when a contact isn't found
+     */
+    ResponseEntity notFound() {
+        return new ResponseEntity( HttpStatus.NOT_FOUND )
+    }
+
 }

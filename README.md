@@ -186,6 +186,40 @@ For full use of the `RestServiceHelper`, watch our Specs like `ContactApiSpec` e
 `RestServiceHelper` and the jQuery .ajax() "options"-inspired `SimpleRestRequest` it uses under the hood. 
 
 
+Part 3: CRUD REST With Errors
+=
+
+Up until now, we've lived in a happy world where the client-side (our specs for the ContactController) have behaved
+exactly as expected.
+
+We all know that this isn't the real world: people are going to enter bad URLs for contacts and try to save contacts 
+that aren't valid.
+
+Let's see how Spring can help us deal with these.
+
+Simple Error Handling: Contact not found
+-
+
+We can handle really simple errors, like user searching for a contact that doesn't exist, by sending an appropriate
+status code and sensible response.
+
+In this branch, I've started refactoring our one "happy path" specification (ZeroToHeroConfigurationSpec). I've renamed
+it ContactApiSpec, and I'm starting to move HTTP-method specific cases (like GET for a single Contact) into their own
+specifications so that we can more granularly deal with its nuances (like handling a bad ID parameter).
+
+The ContactController's /contact/:id handler changes a little bit: it queries the ContactService for a contact. If it's
+non-null, it hands the contact back with a 200 - OK. If null, it sends an empty response with a 404 - NOT FOUND. 
+
+Boom, easy. 
+
+Let's get make life more complicated.
+
+Naive Validation
+-
+
+
+
+ 
 
 
 
