@@ -15,7 +15,7 @@ class ContactApiSpec extends AbstractContactApiSpec {
         }
 
         when:
-        ResponseEntity<List<Contact>> response = service.get("/contacts", service.listOf( Contact ))
+        ResponseEntity<List<Contact>> response = service.get("/contacts", service.listOf( Contact ) )
 
         then:
         response.body.size() >= 5

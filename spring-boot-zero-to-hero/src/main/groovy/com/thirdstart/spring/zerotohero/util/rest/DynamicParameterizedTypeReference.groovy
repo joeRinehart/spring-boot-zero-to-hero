@@ -17,6 +17,6 @@ class DynamicParameterizedTypeReference<T> extends ParameterizedTypeReference<T>
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     Type getType() {
-        return new ParameterizedTypeImpl( parameterizableClass, [ memberClass ].toArray() as Type[], null )
+        return ParameterizedTypeImpl.make( parameterizableClass, [ memberClass ].toArray() as Type[], null )
     }
 }

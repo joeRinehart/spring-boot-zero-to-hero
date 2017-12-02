@@ -18,6 +18,11 @@ class ContactService {
     }
 
     Contact save(Contact contact) {
+
+        if ( contact.firstName == 'Nope!' ) {
+            throw new Exception("We don't save Nope! around here!")
+        }
+
         return contactRepository.save(contact)
     }
 
