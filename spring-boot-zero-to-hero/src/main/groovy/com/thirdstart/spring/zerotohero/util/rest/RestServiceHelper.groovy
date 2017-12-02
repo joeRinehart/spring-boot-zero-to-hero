@@ -1,5 +1,6 @@
 package com.thirdstart.spring.zerotohero.util.rest
 
+import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
@@ -24,6 +25,14 @@ class RestServiceHelper {
     // PUBLIC METHODS
 
     /**
+     * Fairly specific to our helper classes: creates an expected response type of ApiErrorInformation<memberClass>,
+     * allowing you to receive an ApiErrorInformation instance that contains a strongly-typed 'subject' property
+     */
+    def apiErrorInformationFor( Class memberClass ) {
+        return new DynamicParameterizedTypeReference<Object>( ApiErrorInformation, memberClass ) {};
+    }
+
+    /**
      * Replaces having to manually create ParameterizedTypeReference subclasses anytime you want to get a list
      * of something other than a generic Object back from a service.
      *
@@ -40,7 +49,7 @@ class RestServiceHelper {
      *
      * @param iterableClass The type of iterable you expect, such as java.util.ArrayList
      * @param memberClass The type you're expecting to receive, like com.your.great.service.domain.Contact.
-     * @return A ParameterizedTypeReference subclass that represents an iterableClass of your memberClass
+     * @return A ParameterizedTypeReference subclass that represents an parameterizableClass of your memberClass
      */
     def iterableTypeFor( Class iterableClass, Class memberClass ) {
         return new DynamicParameterizedTypeReference<Object>( iterableClass, memberClass ) {};

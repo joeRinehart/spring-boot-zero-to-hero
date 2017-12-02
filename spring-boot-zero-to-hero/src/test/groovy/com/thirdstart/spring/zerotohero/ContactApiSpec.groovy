@@ -22,23 +22,6 @@ class ContactApiSpec extends AbstractContactApiSpec {
         response.body.first() instanceof Contact
     }
 
-    def "We can save a valid contact with a POST to /contacts"() {
-        when:
-        ResponseEntity<Contact> response = service.post(
-            '/contacts',
-            new Contact(
-                firstName: "Chuck",
-                lastName: "Berry"
-            )
-        )
-
-        then:
-        response.statusCode == HttpStatus.OK
-        response.body.id > 0
-        response.body.firstName == "Chuck"
-        response.body.lastName == "Berry"
-    }
-
     def "We can update a contact with a PUT to /contacts/:id"() {
         setup:
         Contact contact = createARandomContact()

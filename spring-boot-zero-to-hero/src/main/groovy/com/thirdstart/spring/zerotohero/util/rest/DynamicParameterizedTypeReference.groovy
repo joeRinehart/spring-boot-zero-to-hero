@@ -7,16 +7,16 @@ import java.lang.reflect.Type
 
 class DynamicParameterizedTypeReference<T> extends ParameterizedTypeReference<T> {
 
-    Class iterableClass
+    Class parameterizableClass
     Class memberClass
 
-    DynamicParameterizedTypeReference(Class iterableClass, Class memberClass) {
-        this.iterableClass = iterableClass
+    DynamicParameterizedTypeReference(Class parameterizableClass, Class memberClass) {
+        this.parameterizableClass = parameterizableClass
         this.memberClass = memberClass
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    public Type getType() {
-        return new ParameterizedTypeImpl( iterableClass, [ memberClass ].toArray() as Type[], null )
+    Type getType() {
+        return new ParameterizedTypeImpl( parameterizableClass, [ memberClass ].toArray() as Type[], null )
     }
 }

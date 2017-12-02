@@ -214,10 +214,64 @@ Boom, easy.
 
 Let's get make life more complicated.
 
-Naive Validation
+Handling Invalid Input
 -
 
+Most of the documentation and tutorials I've read about handling validation go like this:
 
+* Slap some annotations on bean properties
+* Add @Validated to your controller method's @RequestBody
+* Party
+
+IMO, that's cheap and naive for real-world use. The author of Spring's documentation agrees:
+
+> validation should not be tied to the web tier
+
+...but also agrees that it's arguable...
+
+> There are pros and cons for considering validation as business logic
+
+...so I'm going to walk through both cases.
+
+### Web-Tier Validation
+
+This is the cheap and dirty way. It'll work for our simple case. My view of it is that it's entirely appropriate to do 
+this whenever the structure of what's sent by the client doesn't match up with your domain model (frequently in anything
+non-trivial!). _(For the Grails-y amongst us: think Commands.)_
+
+Knocking together validation at the Web tier is easy.
+
+First, we annotate our bean:
+
+    @NotNull(message="contact.firstname.notnull")
+    String firstName
+
+Then, we tell our controller that its input should be @Validated:
+
+    ResponseEntity<Contact> post( @Validated @RequestBody Contact contactDto ) {
+
+And there. We can test immediately for a 400 - BAD REQUEST:
+
+    def "POSTing an invalid contact returns a 400 - BAD REQUEST"() {
+        when:
+        ResponseEntity<Contact> response = service.post(
+                '/contacts',
+                new Contact(
+                        firstName: null,
+                        lastName: "Berry"
+                )
+        )
+
+        then:
+        response.statusCode == HttpStatus.BAD_REQUEST
+    }
+
+However, that's terrible for the client: Spring's default behavior will be to send them back an empty Contact while
+giving no indication of what was wrong.
+
+  
+
+ 
 
  
 
