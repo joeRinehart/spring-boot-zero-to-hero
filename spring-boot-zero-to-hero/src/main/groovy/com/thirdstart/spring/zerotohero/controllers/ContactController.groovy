@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -34,11 +33,11 @@ class ContactController {
     ResponseEntity<Contact> get( @PathVariable('id') Long id ) {
         Contact contact = contactService.findOne( id )
 
-        return contact ? ok(contact) : notFound()
+        return ok(contact)
     }
 
     @PostMapping('/contacts')
-    ResponseEntity post( @Validated @RequestBody Contact contactDto ) {
+    ResponseEntity<Contact> post( @RequestBody Contact contactDto ) {
         Contact contact = assemble( contactDto )
 
         contactService.save( contact )
@@ -85,12 +84,4 @@ class ContactController {
     ResponseEntity ok(Contact contact) {
         return new ResponseEntity( contact, HttpStatus.OK )
     }
-
-    /**
-     * Create an HttpStatus.OK (404) response when a contact isn't found
-     */
-    ResponseEntity notFound() {
-        return new ResponseEntity( HttpStatus.NOT_FOUND )
-    }
-
 }

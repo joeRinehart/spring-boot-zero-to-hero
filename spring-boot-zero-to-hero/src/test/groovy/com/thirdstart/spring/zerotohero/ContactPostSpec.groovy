@@ -49,9 +49,11 @@ class ContactPostSpec extends AbstractContactApiSpec {
         response.body instanceof ApiErrorInformation
         response.body.body instanceof Contact
         response.body.messages.size() >= 2
-        response.body.messages.first().code == 'NotNull.contact.lastName'
-        response.body.messages.first().subject == 'lastName'
-        response.body.messages.first().message == 'This is required.'
+
+        ApiErrorMessage lastNameMessage = response.body.messages.find{ it.subject == 'lastName' }
+        lastNameMessage != null
+        lastNameMessage.code == 'NotNull.contact.lastName'
+        lastNameMessage.message == 'This is required.'
     }
 
     def "POSTing a contact with the firstname 'Nope!' throws a handled exception"() {

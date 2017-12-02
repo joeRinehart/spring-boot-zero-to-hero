@@ -1,6 +1,7 @@
 package com.thirdstart.spring.zerotohero
 
 import com.thirdstart.spring.zerotohero.domain.Contact
+import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,15 +26,17 @@ class ContactSingularGetSpec extends AbstractContactApiSpec {
         response.body.id == contactId
     }
 
-    def "If we get a contact with an invalid id, we get a 404"() {
+    def "If we get a contact with an invalid id, we get a 404 with ApiErrorInformation"() {
         setup:
         Long contactId = -1 // because example, ok? and have you _ever_ encountered an id of -1?
 
         when:
-        ResponseEntity response = service.get("/contacts/${contactId}")
+        ResponseEntity<ApiErrorInformation> response = service.get("/contacts/${contactId}", ApiErrorInformation)
 
         then:
         response.statusCode == HttpStatus.NOT_FOUND
+        response.body instanceof ApiErrorInformation
+        response.body.detail == "No contact found for id -1."
     }
 
 }
