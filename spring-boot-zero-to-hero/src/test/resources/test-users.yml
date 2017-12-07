@@ -1,0 +1,9 @@
+# users we want use as mock principles
+users:
+  - username: admin_user
+    authorities:
+      - authority: ROLE_ADMIN
+      - authority: ROLE_USER
+  - username: test_user
+    roles:
+      - authority: ROLE_USER
