@@ -1,13 +1,9 @@
 package com.thirdstart.spring.zerotohero
 
-import com.github.tomakehurst.wiremock.junit.WireMockClassRule
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.github.tomjankes.wiremock.WireMockGroovy
 import groovy.json.JsonBuilder
-import org.junit.ClassRule
 import org.junit.Rule
-import org.springframework.beans.factory.annotation.Autowired
-import spock.lang.Shared
 
 import javax.annotation.Resource
 

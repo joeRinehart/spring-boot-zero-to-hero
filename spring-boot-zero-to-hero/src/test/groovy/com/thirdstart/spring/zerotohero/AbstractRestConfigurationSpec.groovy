@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.web.client.TestRestTemplate
-import spock.lang.Shared
 import spock.lang.Specification
 
 abstract class AbstractRestConfigurationSpec extends Specification {
