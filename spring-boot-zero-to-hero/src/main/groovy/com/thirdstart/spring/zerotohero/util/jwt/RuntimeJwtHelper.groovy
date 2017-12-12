@@ -1,4 +1,4 @@
-package com.thirdstart.spring.jwt
+package com.thirdstart.spring.zerotohero.util.jwt
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws

@@ -4,6 +4,9 @@ import com.thirdstart.spring.zerotohero.domain.Contact
 import com.thirdstart.spring.zerotohero.repositories.ContactRepository
 import com.thirdstart.spring.zerotohero.util.spring.SimpleValidator
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.annotation.Secured
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -12,6 +15,7 @@ import javax.persistence.EntityNotFoundException
 
 @Transactional
 @Component
+@PreAuthorize("hasRole('USER')")
 class ContactService {
 
     @Autowired
@@ -20,6 +24,8 @@ class ContactService {
     @Autowired
     SimpleValidator simpleValidator
 
+    @Autowired
+    UserService userService
 
     Contact findOne(Long id) {
         Contact contact = contactRepository.findOne(id)
@@ -32,7 +38,6 @@ class ContactService {
     }
 
     Contact save(Contact contact) {
-
         // Not intended to be "validation" per se: just an example of an exception raised in the business/server tier
         // that we want to tackle BEFORE validation.
         if ( contact.firstName == 'Nope!' ) {

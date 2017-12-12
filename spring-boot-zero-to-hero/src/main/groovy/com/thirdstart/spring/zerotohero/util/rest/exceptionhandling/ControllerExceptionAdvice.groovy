@@ -6,6 +6,7 @@ import groovy.util.logging.Log4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.validation.Errors
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -38,6 +39,21 @@ class ControllerExceptionAdvice {
                         detail: "There's been an error handling your request.",
                 ),
                 HttpStatus.INTERNAL_SERVER_ERROR
+        )
+    }
+
+    /**
+     * Handles Spring Security access denied exceptions
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseBody
+    ResponseEntity<ApiErrorInformation> handleAccessDeniedException(AccessDeniedException ex) {
+        return new ResponseEntity<ApiErrorInformation>(
+                new ApiErrorInformation(
+                        errorMessage: "Access denied.",
+                        detail: "",
+                ),
+                HttpStatus.FORBIDDEN
         )
     }
 

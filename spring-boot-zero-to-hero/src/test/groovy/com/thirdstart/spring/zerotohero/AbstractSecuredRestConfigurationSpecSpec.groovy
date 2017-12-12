@@ -1,10 +1,9 @@
 package com.thirdstart.spring.zerotohero
 
-import com.thirdstart.spring.jwt.RuntimeJwtHelper
+import com.thirdstart.spring.zerotohero.util.jwt.RuntimeJwtHelper
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 
 @SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfigurationSpec {
