@@ -9,13 +9,9 @@
 
 users:
   - username: admin_user
-    # just the result of a { "username" : "admin_user" } payload at jwt.io
-    jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluX3VzZXIifQ.CL3En183lRqb0ckU156I0gUf1VR2WRjEmf3BD-gwKrE
     authorities:
       - authority: ROLE_ADMIN
       - authority: ROLE_USER
   - username: test_user
-    # just the result of a { "username" : "test_user" } payload at jwt.io
-    jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlciJ9.iMXTdo40meLNAvg1IENEaUPGL-9LdrsO-q6eRHTpK0w
     roles:
       - authority: ROLE_USER

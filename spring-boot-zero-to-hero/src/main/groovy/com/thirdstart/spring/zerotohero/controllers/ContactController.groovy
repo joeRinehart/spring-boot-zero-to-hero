@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 @Controller
-@PreAuthorize("hasRole('USER')")
 class ContactController {
 
     // PROPERTIES
