@@ -22,7 +22,7 @@ class AbstractSecuredRestConfigurationSpec extends AbstractRestConfigurationSpec
         }
 
         if ( !principal ) {
-            throw new RuntimeException("There's no user with username ${principalName} in your test-users.yml!")
+            throw new RuntimeException("There's no user with username ${username} in your test-users.yml!")
         }
 
         return runtimeJwtHelper.createToken(principal.username, [ authorities: principal.authorities ])

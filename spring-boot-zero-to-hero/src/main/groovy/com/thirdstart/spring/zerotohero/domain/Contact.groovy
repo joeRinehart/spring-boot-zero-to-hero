@@ -1,9 +1,12 @@
 package com.thirdstart.spring.zerotohero.domain
 
-import javax.persistence.Entity;
+import javax.persistence.Entity
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,6 +21,15 @@ public class Contact {
 
     @NotNull(message="contact.lastname.notnull")
     String lastName
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="created_by_id")
+    @NotNull(message="contact.createdBy.notnull")
+    User createdBy
+
+    Boolean canBeAccessedBy(User user) {
+        return user == createdBy
+    }
 
     String toString() {
         return String.format(

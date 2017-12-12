@@ -18,6 +18,7 @@ class ContactPostSpec extends AbstractContactApiSpec {
 
     def "We can save a valid contact with a POST to /contacts"() {
         when:
+        authenticateAs('test_user')
         ResponseEntity<Contact> response = service.post(
                 '/contacts',
                 new Contact(
@@ -35,6 +36,7 @@ class ContactPostSpec extends AbstractContactApiSpec {
 
     def "POSTing an invalid contact returns a 400 - BAD REQUEST"() {
         when:
+        authenticateAs('test_user')
         ResponseEntity<ApiErrorInformation<Contact>> response = service.post(
                 '/contacts',
                 new Contact(
@@ -58,6 +60,7 @@ class ContactPostSpec extends AbstractContactApiSpec {
 
     def "POSTing a contact with the firstname 'Nope!' throws a handled exception"() {
         when:
+        authenticateAs('test_user')
         ResponseEntity<ApiErrorInformation<Contact>> response = service.post(
                 '/contacts',
                 new Contact(
