@@ -3,7 +3,7 @@ package com.thirdstart.spring.zerotohero
 import com.thirdstart.spring.zerotohero.domain.Contact
 import org.springframework.http.ResponseEntity
 
-abstract class AbstractContactApiSpec extends AbstractRestConfigurationSpec {
+abstract class AbstractContactApiSpec extends AbstractSecuredRestConfigurationSpec {
 
     protected Contact createARandomContact() {
         ResponseEntity<Contact> response = service.post(

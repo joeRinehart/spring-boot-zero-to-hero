@@ -1,17 +1,10 @@
-# users we want use as mock principles
-#
-# jwt tokens are via jwt.io
-# jwt header (algo + token type) is:
-# {
-#   "alg": "HS256",
-#   "typ": "JWT"
-# }
+# users we'd like to have as test users for our API
 
 users:
   - username: admin_user
     authorities:
-      - authority: ROLE_ADMIN
-      - authority: ROLE_USER
+      - ROLE_ADMIN
+        ROLE_USER
   - username: test_user
-    roles:
-      - authority: ROLE_USER
+    authorities:
+      - ROLE_USER

@@ -1,5 +1,6 @@
 package com.thirdstart.spring.zerotohero
 
+import com.thirdstart.spring.jwt.RuntimeJwtHelper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.config.YamlMapFactoryBean
 import org.springframework.context.annotation.Bean
@@ -20,6 +21,11 @@ class TestUserConfiguration {
         yamlMapFactoryBean.afterPropertiesSet()
 
         return yamlMapFactoryBean.getObject()
+    }
+
+    @Bean
+    public RuntimeJwtHelper() {
+        return new RuntimeJwtHelper()
     }
 }
 

@@ -36,6 +36,11 @@ class SimpleRestRequest {
     Object body
 
     /**
+     * Any headers we'd like to add to the request
+     */
+    Map<String, String> headers = [:]
+
+    /**
      * The expanded URI used for the actual request, based on serviceUrl, path, and params. If your serviceUrl
      * is https://your.great.service, and path is /thing, and params is [foo: 'bar'], this'll result in a tokenized
      * uri such as https://your.great.service/thing?foo={foo}, allowing RestTemplate to fill in the actual parameter
@@ -57,9 +62,13 @@ class SimpleRestRequest {
      * Returns a new HttpEntity with a content-type of application/json for use in RestTemplate exchange() operations.
      */
     HttpEntity getHttpEntity() {
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>()
-        headers.add("HeaderName", "value")
-        headers.add("Content-Type", "application/json")
-        return new HttpEntity(body, headers)
+        MultiValueMap<String, String> entityHeaders = new LinkedMultiValueMap<String, String>()
+        entityHeaders.add("Content-Type", "application/json")
+
+        headers.eachWithIndex { String k, String v, i ->
+            entityHeaders.add(k, v)
+        }
+
+        return new HttpEntity(body, entityHeaders)
     }
 }

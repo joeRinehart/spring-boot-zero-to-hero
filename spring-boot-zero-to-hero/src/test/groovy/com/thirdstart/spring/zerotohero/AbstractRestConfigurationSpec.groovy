@@ -9,6 +9,8 @@ import spock.lang.Specification
 
 abstract class AbstractRestConfigurationSpec extends Specification {
 
+    Map defaultHeaders = [:]
+
     @Value('${server.protocol}')
     String serverProtocol
 
@@ -33,14 +35,16 @@ abstract class AbstractRestConfigurationSpec extends Specification {
     RestServiceHelper getService() {
         return new RestServiceHelper(
             restTemplate: testRestTemplate.restTemplate,
-            serviceUrl: serverProtocol + '://' + serverHost + ':' + serverPort
+            serviceUrl: serverProtocol + '://' + serverHost + ':' + serverPort,
+            headers: defaultHeaders
         )
     }
 
     RestServiceHelper getManagement() {
         return new RestServiceHelper(
             restTemplate: testRestTemplate.restTemplate,
-            serviceUrl: managementProtocol + '://' + managementHost + ':' + managementPort
+            serviceUrl: managementProtocol + '://' + managementHost + ':' + managementPort,
+            headers: defaultHeaders
         )
     }
 

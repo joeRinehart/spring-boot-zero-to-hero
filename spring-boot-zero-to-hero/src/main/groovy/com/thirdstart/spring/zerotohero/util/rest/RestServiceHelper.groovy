@@ -13,6 +13,11 @@ class RestServiceHelper {
     // PROPERTIES
 
     /**
+     * Headers and values to add to requests
+     */
+    Map<String, String> headers = [:]
+
+    /**
      * The URL for the service this helper should target, such as http://your.great.service/
      */
     String serviceUrl
@@ -77,7 +82,7 @@ class RestServiceHelper {
      * @return
      */
     ResponseEntity get(String path, Map params) {
-        return get([path: path, params: params])
+        return get([path: path, params: params, headers: headers])
     }
 
     /**
@@ -90,7 +95,7 @@ class RestServiceHelper {
      * @return
      */
     ResponseEntity get(String path, Object type) {
-        return get([ path: path, type: type ])
+        return get([ path: path, type: type, headers: headers ])
     }
 
     /**
@@ -139,7 +144,7 @@ class RestServiceHelper {
      * @return
      */
     ResponseEntity post(String path, Object body, Object type) {
-        return post([path: path, body: body, type: type])
+        return post([path: path, body: body, type: type, headers: headers])
     }
 
     /**
@@ -189,7 +194,7 @@ class RestServiceHelper {
      * @return
      */
     ResponseEntity put(String path, Object body, Object type) {
-        return put([path: path, body: body, type: type])
+        return put([path: path, body: body, type: type, headers: headers])
     }
 
     /**
@@ -235,7 +240,7 @@ class RestServiceHelper {
      * @return
      */
     ResponseEntity delete(String path, Object type) {
-        return delete( [path: path, type: type ])
+        return delete( [path: path, type: type, headers: headers ])
     }
 
     /**
