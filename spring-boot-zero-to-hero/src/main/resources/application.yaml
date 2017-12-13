@@ -17,3 +17,16 @@ management:
   protocol: http
   host: localhost
 
+jwt:
+  headerName: Authorization
+  publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJATR7KEriRgV41sWUFjAFqsALzgA+OFzoGJnp5YbpCq0k6LZwk6+ZBMgj65/GNZrDcFx7IXdFxYr8HU0Wk1u90CAwEAAQ==
+
+---
+
+# development-only settings. do NOT put developer-specific values in here! create an application-development.yaml
+# file for that!
+spring:
+  profiles: development
+jwt:
+  privateKey: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAkBNHsoSuJGBXjWxZQWMAWqwAvOAD44XOgYmenlhukKrSTotnCTr5kEyCPrn8Y1msNwXHshd0XFivwdTRaTW73QIDAQABAkA+YirEUJD6rUCbutN27YAkwp9bKQBmDvUYv9cPpyjQuIyySB6BHPOzSRWH/A6KcyeHSAVc+rZxLRi+TNM9ut19AiEA6zqGsv2SMzs1MMhL3aJe/bxenSYsxgshplDfhQm0ivsCIQCczC7FoEqlsNvORd8plX1m1hkOMTunM0uR/pRy5f6dBwIhAKaBWROd9j0Zbf9H6JvL8Z1+FyL6ALt26azGllGfmxK9AiB1Uj4I92gDVDMTw6o4Rjefk8EJooL9F1+LLM7MrhT2TwIgTX4u/9dEF+ReonLWLYq6hFjEVWZlZ616unx0ulYoXtQ=
+

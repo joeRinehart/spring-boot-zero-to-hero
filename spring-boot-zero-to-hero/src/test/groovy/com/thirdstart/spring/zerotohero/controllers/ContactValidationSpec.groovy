@@ -1,5 +1,6 @@
-package com.thirdstart.spring.zerotohero
+package com.thirdstart.spring.zerotohero.controllers
 
+import com.thirdstart.spring.zerotohero.ApplicationConfiguration
 import com.thirdstart.spring.zerotohero.domain.Contact
 import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorMessage
@@ -12,8 +13,8 @@ import org.springframework.http.ResponseEntity
  * to find. This spec covers real-world GET operations on our ContactController to make sure we're handling the
  * madness that is real life.
  */
-@SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ContactPostSpec extends AbstractContactApiSpec {
+@SpringBootTest(classes = ApplicationConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ContactValidationSpec extends AbstractContactControllerSpec {
 
     def setup() {
         withUser 'test_user'

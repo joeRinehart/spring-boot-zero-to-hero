@@ -1,4 +1,4 @@
-package com.thirdstart.rest.helper
+package com.thirdstart.testing.rest.resthelper
 
 import org.springframework.core.ParameterizedTypeReference
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl

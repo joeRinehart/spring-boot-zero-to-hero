@@ -1,16 +1,26 @@
-package com.thirdstart.spring.zerotohero
+package com.thirdstart.spring.zerotohero.other
 
-import com.thirdstart.spring.zerotohero.util.jwt.JwtHelper
+import com.thirdstart.spring.zerotohero.ApplicationConfiguration
+import com.thirdstart.spring.zerotohero.util.jwt.JwtParser
+import com.thirdstart.testing.rest.abstractspecs.AbstractSecuredRestControllerSpec
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfigurationSpec {
+@SpringBootTest(classes = ApplicationConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class AbstractSecuredRestControllerSpecSpec extends AbstractSecuredRestControllerSpec {
+
+    @Value('${jwt.headerName}')
+    String jwtHeaderName
+
+    @Autowired
+    JwtParser jwtParser
 
     def "We can create and decrypt JWTs via RuntimeJwtHelper"() {
         when:
-        def token = runtimeJwtHelper.createToken(
+        def token = jwtCreator.createToken(
                 'Joe',
                 [
                     roles: ['ROLE_USER', 'ROLE_ADMIN']
@@ -21,7 +31,7 @@ class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfig
         token.size()
 
         when:
-        Jws<Claims> jws = runtimeJwtHelper.parseToken(token)
+        Jws<Claims> jws = jwtParser.parseToken(token)
         Claims claims = jws.body
 
         then:
@@ -40,7 +50,7 @@ class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfig
         token != null
 
         when:
-        Jws<Claims> jws = runtimeJwtHelper.parseToken(token)
+        Jws<Claims> jws = jwtParser.parseToken(token)
         Claims claims = jws.body
 
         then:
@@ -51,15 +61,15 @@ class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfig
 
     def "We can claim to be a certain user and the default RestServiceHelpers reflect this in their header maps"() {
         expect:
-        service.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
-        management.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
+        service.headers[jwtHeaderName] == null
+        management.headers[jwtHeaderName] == null
 
         when:
         String token = withUser('test_user')
 
         then:
-        service.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
-        management.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
+        service.headers[jwtHeaderName] == token
+        management.headers[jwtHeaderName] == token
     }
 
 }

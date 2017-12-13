@@ -1,13 +1,7 @@
 package com.thirdstart.spring.zerotohero.domain
 
-import javax.persistence.Entity
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.validation.constraints.NotNull;
+import javax.persistence.*
+import javax.validation.constraints.NotNull
 
 @Entity
 public class Contact {

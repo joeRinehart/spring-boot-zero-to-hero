@@ -1,17 +1,21 @@
-package com.thirdstart.spring.zerotohero
+package com.thirdstart.testing.rest.abstractspecs
 
-import com.thirdstart.spring.zerotohero.util.jwt.JwtHelper
+import com.thirdstart.spring.zerotohero.util.jwt.JwtCreator
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 
 import javax.annotation.Resource
 
 /**
  * Extends the convenience AbstractRestConfigurationSpec with helpers for testing a JWT-driven API
  */
-class AbstractSecuredRestConfigurationSpec extends AbstractRestConfigurationSpec {
+class AbstractSecuredRestControllerSpec extends AbstractRestControllerSpec {
 
     @Autowired
-    JwtHelper runtimeJwtHelper
+    JwtCreator jwtCreator
+
+    @Value('${jwt.headerName}')
+    String jwtHeaderName
 
     @Resource(name='testUsers')
     List testUsers
@@ -25,10 +29,10 @@ class AbstractSecuredRestConfigurationSpec extends AbstractRestConfigurationSpec
             throw new RuntimeException("There's no user with username ${username} in your test-users.yml!")
         }
 
-        return runtimeJwtHelper.createToken(principal.username, [ authorities: principal.authorities ])
+        return jwtCreator.createToken(principal.username, [ authorities: principal.authorities ])
     }
 
-    String withUser(String username, String authorizationHeaderName = JwtHelper.DEFAULT_AUTHORIZATION_HEADER) {
+    String withUser(String username, String authorizationHeaderName = jwtHeaderName) {
         String token = createJwtForUser(username)
 
         defaultHeaders[authorizationHeaderName] = token

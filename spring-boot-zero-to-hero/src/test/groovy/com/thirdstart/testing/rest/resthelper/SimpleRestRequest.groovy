@@ -1,4 +1,4 @@
-package com.thirdstart.rest.helper
+package com.thirdstart.testing.rest.resthelper
 
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap

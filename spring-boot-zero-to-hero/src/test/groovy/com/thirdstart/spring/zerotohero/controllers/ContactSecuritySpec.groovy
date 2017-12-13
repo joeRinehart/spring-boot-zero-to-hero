@@ -1,5 +1,6 @@
-package com.thirdstart.spring.zerotohero
+package com.thirdstart.spring.zerotohero.controllers
 
+import com.thirdstart.spring.zerotohero.ApplicationConfiguration
 import com.thirdstart.spring.zerotohero.domain.Contact
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
@@ -8,8 +9,8 @@ import org.springframework.http.ResponseEntity
 /**
  * Now that we've got security in place, we can make sure users can only manipulate their own contacts.
  */
-@SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ContactSecuritySpec extends AbstractContactApiSpec {
+@SpringBootTest(classes = ApplicationConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ContactSecuritySpec extends AbstractContactControllerSpec {
 
     def "An unauthenticated user can't create a contact"() {
         when:
@@ -59,7 +60,6 @@ class ContactSecuritySpec extends AbstractContactApiSpec {
         then: "We get a 403"
         response.statusCode == HttpStatus.FORBIDDEN
     }
-
 
     def "We can't delete a different user's contacts"() {
         setup:

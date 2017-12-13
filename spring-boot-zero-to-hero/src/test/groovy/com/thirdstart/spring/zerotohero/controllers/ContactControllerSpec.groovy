@@ -1,12 +1,13 @@
-package com.thirdstart.spring.zerotohero
+package com.thirdstart.spring.zerotohero.controllers
 
+import com.thirdstart.spring.zerotohero.ApplicationConfiguration
 import com.thirdstart.spring.zerotohero.domain.Contact
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-@SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ContactApiSpec extends AbstractContactApiSpec {
+@SpringBootTest(classes = ApplicationConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ContactControllerSpec extends AbstractContactControllerSpec {
 
     def "We can list all contacts with a GET to /contacts"() {
         setup:
@@ -21,6 +22,19 @@ class ContactApiSpec extends AbstractContactApiSpec {
         then:
         response.body.size() >= 5
         response.body.first() instanceof Contact
+    }
+
+    def "We can get a contact with a GET to /contacts/:id"() {
+        setup:
+        withUser('test_user')
+        Long contactId = createARandomContact().id
+
+        when:
+        ResponseEntity<Contact> response = service.get("/contacts/${contactId}", Contact)
+
+        then:
+        response.statusCode == HttpStatus.OK
+        response.body.id == contactId
     }
 
     def "We can update a contact with a PUT to /contacts/:id"() {
@@ -64,6 +78,7 @@ class ContactApiSpec extends AbstractContactApiSpec {
 
     def "Should return 200 when GETing /info from management interface"() {
         when:
+        withUser('admin_user')
         ResponseEntity response = management.get( '/info' )
 
         then:

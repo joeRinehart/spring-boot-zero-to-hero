@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class ZeroToHeroConfiguration {
+class ApplicationConfiguration {
 
     static void main(String[] args) {
-        SpringApplication.run(ZeroToHeroConfiguration.class, args);
+        SpringApplication.run( ApplicationConfiguration.class, args )
     }
 
 }

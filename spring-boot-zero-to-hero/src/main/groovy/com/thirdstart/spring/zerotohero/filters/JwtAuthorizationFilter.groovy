@@ -1,6 +1,6 @@
 package com.thirdstart.spring.zerotohero.filters
 
-import com.thirdstart.spring.zerotohero.util.jwt.JwtHelper
+import com.thirdstart.spring.zerotohero.util.jwt.JwtParser
 import groovy.util.logging.Log4j
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
@@ -22,22 +22,24 @@ import javax.servlet.http.HttpServletResponse
  */
 class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    JwtHelper runtimeJwtHelper
+    JwtParser jwtParser
+    String jwtHeaderName = 'Authorization'
 
-    JwtAuthorizationFilter(AuthenticationManager authenticationManager, JwtHelper runtimeJwtHelper ) {
+    JwtAuthorizationFilter(AuthenticationManager authenticationManager, JwtParser jwtParser, String jwtHeaderName) {
         super(authenticationManager)
-        this.runtimeJwtHelper = runtimeJwtHelper
+        this.jwtParser = jwtParser
+        this.jwtHeaderName = jwtHeaderName
     }
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
-        String header = request.getHeader('Authorization')
+        String header = request.getHeader(jwtHeaderName)
 
         log.info("Authorization header: ${header}")
 
         UsernamePasswordAuthenticationToken authenticationToken
 
         if ( header ) {
-            Jws<Claims> jwt = runtimeJwtHelper.parseToken(header)
+            Jws<Claims> jwt = jwtParser.parseToken(header)
 
             if ( jwt ) {
                 String username = jwt.body.sub

@@ -1,12 +1,6 @@
 package com.thirdstart.spring.zerotohero.domain
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Transient
+import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -28,7 +22,7 @@ public class User {
 
     String toString() {
         return String.format(
-                "User[userName='%s']",
+                "User[id='%s', userName='%s']",
                 id, username)
     }
 

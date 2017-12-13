@@ -1,4 +1,4 @@
-package com.thirdstart.rest.helper
+package com.thirdstart.testing.rest.resthelper
 
 import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import org.springframework.http.HttpMethod
