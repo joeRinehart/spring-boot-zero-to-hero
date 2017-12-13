@@ -20,38 +20,19 @@ to easy implementation of other security setups.
 
 How's this repository organized?
 -
-I've built each "evolution" as a new branch. In each branch, I'll update this readme, describing the goal of the branch
-and what's been added to the codebase to help us get there.
 
+The "master" branch of this repository will eventually contain the "complete" template. By cloning master, you'll get
+all of the code and the entire README covering what it does/how it works.
 
-Introduction
--
+I've built each "evolution," such as adding on error handling or validation, as a new branch. In each branch, I'll
+update this readme, describing the goal of the branch and what's been added to the codebase to help us get there.
 
-For the past five years my team has focused on delivering Grails applications. As our process matured we've found
-ourselves able to deliver production-ready Web applications in a really big hurry by leveraging things like Spring
-Security, database migrations, Gradle-based pushbutton builds, and so on.
-
-With a growing interest in microservices I thought it was time to lay down the foundation for a similar process that
-doesn't bring along all of Grails, giving us a set of stripped-down templates for authenticated, JSON-based REST services
-that use Spring Boot and don't care about a specific database engine.
-
-Basis
--
-
-Each template will draw a good deal on already-available tutorials but add in convenience methods and abstract helper
-classes aiming to minimize the effort needed to develop a production-ready Spring Boot microservice.
 
 Language Choice
 -
 
-I started to do this in raw Java (since I haven't used it in a long time), but that's not where I want to go in life.
-We'll be using Groovy, since its static compilation has greatly reduced any performance issues.
-
-Format
--
-
-I'll be building up each template as a branch in this repository. Each branch will add to this README.md describing
-what it's added as we journey from "hello world" to a usable real-world microservice.
+We'll be using Groovy. I started to do this in raw Java (since I haven't used it in a long time), but that's not where
+I want to go in life.
 
 Part 1: Bare-Bones REST
 =
