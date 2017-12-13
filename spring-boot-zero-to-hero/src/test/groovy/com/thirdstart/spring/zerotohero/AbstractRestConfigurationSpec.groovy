@@ -1,6 +1,6 @@
 package com.thirdstart.spring.zerotohero
 
-import com.thirdstart.spring.zerotohero.util.rest.RestServiceHelper
+import com.thirdstart.rest.helper.RestServiceHelper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.embedded.LocalServerPort

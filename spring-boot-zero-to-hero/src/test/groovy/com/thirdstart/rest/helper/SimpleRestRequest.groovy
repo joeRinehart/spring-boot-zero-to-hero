@@ -1,4 +1,4 @@
-package com.thirdstart.spring.zerotohero.util.rest
+package com.thirdstart.rest.helper
 
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap

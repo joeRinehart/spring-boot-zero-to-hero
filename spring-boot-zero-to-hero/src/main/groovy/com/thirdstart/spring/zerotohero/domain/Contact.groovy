@@ -33,8 +33,9 @@ public class Contact {
 
     String toString() {
         return String.format(
-                "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName)
+            "Contact[id=%d, firstName='%s', lastName='%s', createdBy='%s']",
+            id, firstName, lastName, createdBy?.username
+        )
     }
 
 }

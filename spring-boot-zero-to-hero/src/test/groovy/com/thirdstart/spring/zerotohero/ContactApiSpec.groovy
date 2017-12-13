@@ -10,7 +10,7 @@ class ContactApiSpec extends AbstractContactApiSpec {
 
     def "We can list all contacts with a GET to /contacts"() {
         setup:
-        authenticateAs('test_user')
+        withUser('test_user')
         (0..5).each{
             createARandomContact()
         }
@@ -25,7 +25,7 @@ class ContactApiSpec extends AbstractContactApiSpec {
 
     def "We can update a contact with a PUT to /contacts/:id"() {
         setup:
-        authenticateAs('test_user')
+        withUser('test_user')
         Contact contact = createARandomContact()
         String newLastName = UUID.randomUUID().toString()
 
@@ -48,7 +48,7 @@ class ContactApiSpec extends AbstractContactApiSpec {
 
     def "We can delete a contact with a DELETE to /contacts/:id"() {
         setup:
-        authenticateAs('test_user')
+        withUser('test_user')
         Contact contact = createARandomContact()
         Integer contactCount = service.get('/contacts', service.listOf(Contact) ).body.size()
 

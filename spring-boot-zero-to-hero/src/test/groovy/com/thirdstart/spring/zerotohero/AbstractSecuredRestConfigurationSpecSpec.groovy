@@ -1,6 +1,6 @@
 package com.thirdstart.spring.zerotohero
 
-import com.thirdstart.spring.zerotohero.util.jwt.RuntimeJwtHelper
+import com.thirdstart.spring.zerotohero.util.jwt.JwtHelper
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import org.springframework.boot.test.context.SpringBootTest
@@ -51,15 +51,15 @@ class AbstractSecuredRestConfigurationSpecSpec extends AbstractSecuredRestConfig
 
     def "We can claim to be a certain user and the default RestServiceHelpers reflect this in their header maps"() {
         expect:
-        service.headers[RuntimeJwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
-        management.headers[RuntimeJwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
+        service.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
+        management.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == null
 
         when:
-        String token = authenticateAs('test_user')
+        String token = withUser('test_user')
 
         then:
-        service.headers[RuntimeJwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
-        management.headers[RuntimeJwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
+        service.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
+        management.headers[JwtHelper.DEFAULT_AUTHORIZATION_HEADER] == token
     }
 
 }

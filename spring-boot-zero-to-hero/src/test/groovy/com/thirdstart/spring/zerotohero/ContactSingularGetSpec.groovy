@@ -1,7 +1,6 @@
 package com.thirdstart.spring.zerotohero
 
 import com.thirdstart.spring.zerotohero.domain.Contact
-import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,7 +15,7 @@ class ContactSingularGetSpec extends AbstractContactApiSpec {
 
     def "We can get a contact with a GET to /contacts/:id"() {
         setup:
-        authenticateAs('test_user')
+        withUser('test_user')
         Long contactId = createARandomContact().id
 
         when:

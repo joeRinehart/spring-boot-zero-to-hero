@@ -1,7 +1,6 @@
 package com.thirdstart.spring.zerotohero
 
 import com.thirdstart.spring.zerotohero.domain.Contact
-import com.thirdstart.spring.zerotohero.util.rest.DynamicParameterizedTypeReference
 import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorInformation
 import com.thirdstart.spring.zerotohero.util.rest.exceptionhandling.ApiErrorMessage
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,9 +15,12 @@ import org.springframework.http.ResponseEntity
 @SpringBootTest(classes = ZeroToHeroConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ContactPostSpec extends AbstractContactApiSpec {
 
+    def setup() {
+        withUser 'test_user'
+    }
+
     def "We can save a valid contact with a POST to /contacts"() {
         when:
-        authenticateAs('test_user')
         ResponseEntity<Contact> response = service.post(
                 '/contacts',
                 new Contact(
@@ -36,7 +38,6 @@ class ContactPostSpec extends AbstractContactApiSpec {
 
     def "POSTing an invalid contact returns a 400 - BAD REQUEST"() {
         when:
-        authenticateAs('test_user')
         ResponseEntity<ApiErrorInformation<Contact>> response = service.post(
                 '/contacts',
                 new Contact(
@@ -60,7 +61,7 @@ class ContactPostSpec extends AbstractContactApiSpec {
 
     def "POSTing a contact with the firstname 'Nope!' throws a handled exception"() {
         when:
-        authenticateAs('test_user')
+        withUser('test_user')
         ResponseEntity<ApiErrorInformation<Contact>> response = service.post(
                 '/contacts',
                 new Contact(

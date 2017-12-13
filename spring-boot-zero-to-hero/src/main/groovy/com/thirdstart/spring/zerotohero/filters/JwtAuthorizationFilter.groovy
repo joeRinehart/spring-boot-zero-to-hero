@@ -1,6 +1,6 @@
 package com.thirdstart.spring.zerotohero.filters
 
-import com.thirdstart.spring.zerotohero.util.jwt.RuntimeJwtHelper
+import com.thirdstart.spring.zerotohero.util.jwt.JwtHelper
 import groovy.util.logging.Log4j
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
@@ -22,9 +22,9 @@ import javax.servlet.http.HttpServletResponse
  */
 class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    RuntimeJwtHelper runtimeJwtHelper
+    JwtHelper runtimeJwtHelper
 
-    JwtAuthorizationFilter( AuthenticationManager authenticationManager, RuntimeJwtHelper runtimeJwtHelper ) {
+    JwtAuthorizationFilter(AuthenticationManager authenticationManager, JwtHelper runtimeJwtHelper ) {
         super(authenticationManager)
         this.runtimeJwtHelper = runtimeJwtHelper
     }

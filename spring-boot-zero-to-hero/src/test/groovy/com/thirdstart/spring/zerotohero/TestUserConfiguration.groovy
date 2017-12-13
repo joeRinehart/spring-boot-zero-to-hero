@@ -1,6 +1,5 @@
 package com.thirdstart.spring.zerotohero
 
-import com.thirdstart.spring.zerotohero.util.jwt.RuntimeJwtHelper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.config.YamlMapFactoryBean
 import org.springframework.context.annotation.Bean

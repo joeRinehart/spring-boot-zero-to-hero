@@ -76,6 +76,6 @@ class ContactService {
     }
 
     Iterable<Contact> findAll() {
-        return contactRepository.findAll()
+        return contactRepository.findByCreatedBy( currentUser )
     }
 }
